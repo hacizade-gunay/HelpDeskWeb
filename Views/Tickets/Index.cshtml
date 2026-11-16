@@ -1,0 +1,57 @@
+﻿@model IEnumerable<HelpDeskWeb.Models.Ticket>
+
+@{
+    ViewData["Title"] = "IT Help Desk — Müraciətlər";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Texniki Dəstək Müraciətləri</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Yeni Müraciət</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Hazırda heç bir müraciət yoxdur. Yeni müraciət yaradın.</div>
+}
+else
+{
+    <table class="table table-bordered table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Başlıq</th>
+                <th>Kateqoriya</th>
+                <th>Prioritet</th>
+                <th>Status</th>
+                <th>Tarix</th>
+                <th>Əməliyyatlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td><strong>@item.Title</strong></td>
+                    <td>@item.Category</td>
+                    <td>
+                        <span class="badge @(item.Priority == "High" ? "bg-danger" : item.Priority == "Low" ? "bg-secondary" : "bg-warning text-dark")">
+                            @item.Priority
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge @(item.Status == "Closed" ? "bg-success" : item.Status == "In Progress" ? "bg-info text-dark" : "bg-primary")">
+                            @item.Status
+                        </span>
+                    </td>
+                    <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-info">Bax</a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Redaktə</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,65 @@
+﻿@model HelpDeskWeb.Models.Ticket
+
+@{
+    ViewData["Title"] = "Müraciəti Redaktə Et";
+}
+
+<h2 class="mb-4">Müraciət #@Model.Id — Redaktə</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Başlıq</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label">Kateqoriya</label>
+                <select asp-for="Category" class="form-select">
+                    <option value="Hardware">Hardware (Avadanlıq)</option>
+                    <option value="Software">Software (Proqram təminatı)</option>
+                    <option value="Network">Network (Şəbəkə)</option>
+                    <option value="Access / Account">Access / Account (Hesab və Giriş)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Priority" class="form-label">Prioritet</label>
+                <select asp-for="Priority" class="form-select">
+                    <option value="Low">Low (Aşağı)</option>
+                    <option value="Normal">Normal (Orta)</option>
+                    <option value="High">High (Yüksək)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Status" class="form-label">Status</label>
+                <select asp-for="Status" class="form-select">
+                    <option value="New">New (Yeni)</option>
+                    <option value="In Progress">In Progress (İcrada)</option>
+                    <option value="Closed">Closed (Bağlandı)</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Təsvir</label>
+                <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Yadda saxla</button>
+            <a asp-action="Index" class="btn btn-secondary">Ləğv et</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

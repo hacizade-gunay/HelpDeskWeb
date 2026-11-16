@@ -1,0 +1,21 @@
+﻿@model HelpDeskWeb.Models.Ticket
+
+@{
+    ViewData["Title"] = "Müraciəti Sil";
+}
+
+<h2 class="text-danger mb-3">Müraciəti silmək istədiyinizə əminsiniz?</h2>
+
+<div class="card border-danger mb-3">
+    <div class="card-body">
+        <h5>#@Model.Id — @Model.Title</h5>
+        <p class="mb-1"><strong>Kateqoriya:</strong> @Model.Category | <strong>Status:</strong> @Model.Status</p>
+        <p class="mb-0"><strong>Təsvir:</strong> @Model.Description</p>
+    </div>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Bəli, Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">Xeyr, Geri qayıt</a>
+</form>
